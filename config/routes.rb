@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :users do
       post '/register', action: :create
+      post :login
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
