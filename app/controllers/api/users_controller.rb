@@ -3,9 +3,10 @@ class Api::UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      render json: { id: user.id }, status: :created
-    else
-      render json: { message: "Error creating user" }, status: :unauthorized
+      token = JWT.encode({ id: user.id }, ENV['secret_jwt'], 'HS256')
+      render json: {token:, email: user.email }, status: :created
+    elsif user.errors.attribute_names.include? :email
+      render json: { message: "Usuário já existe!" }, status: :bad_request
     end
   end
 
