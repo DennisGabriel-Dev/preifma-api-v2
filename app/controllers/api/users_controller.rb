@@ -17,6 +17,7 @@ class Api::UsersController < ApplicationController
 
     if find_user.blank?
       render json: { message: "Usuário não existe!" }, status: :not_found
+      return
     end
 
     compare_password = BCrypt::Password.new(find_user.password_digest) == user.password
