@@ -1,11 +1,11 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
     if user.save
-      render json: user.id, status: :created
+      render json: { id: user.id }, status: :created
     else
-      render json: (message: "Error creating user"), status: :unauthorized
+      render json: { message: "Error creating user" }, status: :unauthorized
     end
   end
 
