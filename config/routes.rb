@@ -4,6 +4,10 @@ Rails.application.routes.draw do
       post '/register', action: :create
       post :login
     end
+
+    namespace :questions do
+      post :create
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

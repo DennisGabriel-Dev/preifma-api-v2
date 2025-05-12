@@ -54,3 +54,8 @@ group :development, :test do
   # debug application [https://github.com/pry/pry]
   gem 'pry', '~> 0.15.0'
 end
+
+group :development do
+  # https://github.com/ctran/annotate_models
+  gem 'annotate'
+end
