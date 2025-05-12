@@ -38,6 +38,8 @@ class Api::SimulatesController < ApplicationController
     render json: { questions: all_questions.as_json(only: [:id, :title, :description]) }, status: :ok
   end
 
+  def results = render json: { user_answers: @current_user.user_answers }, status: :ok
+
   def show
     question = Question.find params[:id]
     if question
