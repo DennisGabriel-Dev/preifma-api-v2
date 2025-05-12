@@ -7,6 +7,8 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  year        :integer
+#  subject     :string
 #
 
 require "test_helper"

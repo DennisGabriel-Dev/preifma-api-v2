@@ -12,6 +12,6 @@ class Api::QuestionsController < ApplicationController
   private
 
   def questions_params
-    params.permit(:title, :description, answers_attributes: [:text, :correct])
+    params.permit(:title, :description, :year, :subject, answers_attributes: [:text, :correct])
   end
 end

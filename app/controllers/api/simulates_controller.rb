@@ -18,9 +18,12 @@ class Api::SimulatesController < ApplicationController
   end
 
   def questions
-    all_questions = Question.select(:id, :title, :description)
+    q = Question.ransack(params[:q])
+    all_questions = q.result(distinct: true)
+
+    all_questions = all_questions.select(:id, :title, :description)
     if all_questions.blank?
-      render json: { message: "Nenhuma questão registrada!" }, status: :forbidden
+      render json: { message: "Nenhuma questão registrada!" }, status: :not_found
       return
     end
 
