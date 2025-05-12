@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
     namespace :simulates do
       post :answer
+      get :questions
+      get 'questions/:id', action: :show, as: :question
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

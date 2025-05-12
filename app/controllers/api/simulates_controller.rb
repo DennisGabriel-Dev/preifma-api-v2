@@ -11,12 +11,32 @@ class Api::SimulatesController < ApplicationController
       }
 
       unless compare_user_answer
-       data.merge!(correct_is: correct_answer)
+        data.merge!(correct_is: correct_answer)
       end
       render json: data, status: :created
     else
       render json: user_answer.errors, status: :unprocessable_entity
     end
+  end
+
+  def questions
+    all_questions = Question.select(:id, :title, :description)
+    if all_questions.blank?
+      render json: { message: "Nenhuma questão registrada!" }, status: :forbidden
+      return
+    end
+
+    render json: { questions: all_questions.as_json(only: [:id, :title, :description]) }, status: :ok
+  end
+
+  def show
+    question = Question.find params[:id]
+    if question
+      render json: question, status: :ok
+      return
+    end
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { message: "Nenhuma questão registrada com id #{params[:id]}!" }, status: :not_found
   end
 
   private
