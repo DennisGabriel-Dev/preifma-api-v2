@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post :answer
       get :questions
       get 'questions/:id', action: :show, as: :question
+      get :results
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,6 +1,14 @@
 class Api::SimulatesController < ApplicationController
   def answer
     user_answer = current_user.user_answers.new(user_answer_params)
+    find_before_create_user_answer = UserAnswer.find_by(
+      user_id: @current_user.id,
+      question_id: user_answer_params[:question_id],
+      answer_id: user_answer_params[:answer_id]
+    )
+
+    user_answer = find_before_create_user_answer if find_before_create_user_answer.present?
+
     if user_answer.save
       correct_answer = user_answer.question.correct_answer
       compare_user_answer = correct_answer.id == user_answer.answer_id
