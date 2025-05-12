@@ -9,10 +9,8 @@ class Api::SimulatesController < ApplicationController
         answer_id: user_answer.answer_id,
         correct: compare_user_answer
       }
+      data.merge!(correct_is: correct_answer) unless compare_user_answer
 
-      unless compare_user_answer
-        data.merge!(correct_is: correct_answer)
-      end
       render json: data, status: :created
     else
       render json: user_answer.errors, status: :unprocessable_entity
@@ -32,8 +30,7 @@ class Api::SimulatesController < ApplicationController
   def show
     question = Question.find params[:id]
     if question
-      render json: question, status: :ok
-      return
+      render json: { question: , answers: question.answers }, status: :ok
     end
   rescue ActiveRecord::RecordNotFound => e
     render json: { message: "Nenhuma questão registrada com id #{params[:id]}!" }, status: :not_found
