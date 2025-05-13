@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: preifma_api_ruby
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      RAILS_MASTER_KEY: 7a604dd4fa56ade58c3d50236af6eb2c
+      DATABASE_URL: postgres://postgres:postgres@db:5432/preifma_api_production
+    ports:
+      - "80:80"
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "80"]
+
+volumes:
+  db_data:

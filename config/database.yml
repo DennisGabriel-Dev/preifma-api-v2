@@ -84,6 +84,8 @@ production:
     database: preifma_api_ruby_production
     username: preifma_api_ruby
     password: <%= ENV["PREIFMA_API_RUBY_DATABASE_PASSWORD"] %>
+    host: <%= ENV.fetch("DB_HOST", "db") %>
+    port: 5432
   cache:
     <<: *primary_production
     database: preifma_api_ruby_production_cache
