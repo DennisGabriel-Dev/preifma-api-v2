@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
     user.password_confirmation = user.password
     if user.save
       token = JWT.encode({ id: user.id }, ENV['secret_jwt'], 'HS256')
-      render json: {token:, email: user.email }, status: :created
+      render json: {token:, email: user.email, name: user.name }, status: :created
     elsif user.errors.attribute_names.include? :email
       render json: { message: "Usuário já existe!" }, status: :bad_request
     end
@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
 
     if compare_password
       token = JWT.encode({ id: find_user.id }, ENV['secret_jwt'], 'HS256')
-      render json: {token:, email: find_user.email }, status: :ok
+      render json: {token:, email: find_user.email, name: find_user.name }, status: :ok
     end
   end
 
