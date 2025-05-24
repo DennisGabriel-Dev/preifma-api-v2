@@ -1,0 +1,24 @@
+=> [[32m#<Question:0x00007f31e874eb10[0m
+  id: [1;34m7[0m,
+  title: [31m[1;31m"[0m[31mQual a capital da França?[1;31m"[0m[31m[0m,
+  description: [31m[1;31m"[0m[31mTem a torre Eifel[1;31m"[0m[31m[0m,
+  created_at: [31m[1;31m"[0m[31m2025-05-12 01:52:04.196011000 +0000[1;31m"[0m[31m[0m,
+  updated_at: [31m[1;31m"[0m[31m2025-05-12 01:52:04.196011000 +0000[1;31m"[0m[31m[0m,
+  year: [1;36mnil[0m,
+  subject: [1;36mnil[0m[32m>[0m,
+ [32m#<Question:0x00007f31e874e890[0m
+  id: [1;34m8[0m,
+  title: [31m[1;31m"[0m[31mQual a capital da França?[1;31m"[0m[31m[0m,
+  description: [31m[1;31m"[0m[31mTem a torre Eifel[1;31m"[0m[31m[0m,
+  created_at: [31m[1;31m"[0m[31m2025-05-12 03:01:59.754452000 +0000[1;31m"[0m[31m[0m,
+  updated_at: [31m[1;31m"[0m[31m2025-05-12 03:01:59.754452000 +0000[1;31m"[0m[31m[0m,
+  year: [1;34m2025[0m,
+  subject: [31m[1;31m"[0m[31mGeografia[1;31m"[0m[31m[0m[32m>[0m,
+ [32m#<Question:0x00007f31e874e750[0m
+  id: [1;34m9[0m,
+  title: [31m[1;31m"[0m[31mQual a capital da França?[1;31m"[0m[31m[0m,
+  description: [31m[1;31m"[0m[31mTem a torre Eifel[1;31m"[0m[31m[0m,
+  created_at: [31m[1;31m"[0m[31m2025-05-12 22:10:56.335947000 +0000[1;31m"[0m[31m[0m,
+  updated_at: [31m[1;31m"[0m[31m2025-05-12 22:10:56.335947000 +0000[1;31m"[0m[31m[0m,
+  year: [1;34m2025[0m,
+  subject: [31m[1;31m"[0m[31mGeografia[1;31m"[0m[31m[0m[32m>[0m]

@@ -2,13 +2,13 @@
 #
 # Table name: questions
 #
-#  id          :integer          not null, primary key
-#  title       :string
+#  id          :bigint           not null, primary key
 #  description :text
+#  subject     :string
+#  title       :string
+#  year        :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  year        :integer
-#  subject     :string
 #
 
 require "test_helper"
