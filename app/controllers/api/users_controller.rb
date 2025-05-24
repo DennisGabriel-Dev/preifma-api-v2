@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
 
     if compare_password
       token = JWT.encode({ id: find_user.id }, ENV['secret_jwt'], 'HS256')
-      render json: {token:, email: find_user.email, name: find_user.name }, status: :ok
+      render json: {token:, email: find_user.email, name: find_user.name, current_streak: find_user.current_streak }, status: :ok
     end
   end
 

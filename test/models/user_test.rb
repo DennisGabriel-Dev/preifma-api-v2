@@ -2,13 +2,15 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  email           :string
-#  password        :string
-#  name            :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  password_digest :string
+#  id                :bigint           not null, primary key
+#  current_streak    :integer          default(0)
+#  email             :string
+#  last_offensive_at :datetime
+#  name              :string
+#  password          :string
+#  password_digest   :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 require "test_helper"

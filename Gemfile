@@ -60,5 +60,5 @@ end
 
 group :development do
   # https://github.com/ctran/annotate_models
-  gem 'annotate'
+  gem "annotaterb"
 end
