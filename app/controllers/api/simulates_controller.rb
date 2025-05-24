@@ -26,16 +26,25 @@ class Api::SimulatesController < ApplicationController
   end
 
   def questions
-    q = Question.ransack(params[:q])
+    q = Question.includes(:answers).ransack(params[:q])
     all_questions = q.result(distinct: true)
 
-    all_questions = all_questions.select(:id, :title, :description)
+    all_questions = all_questions.select(:id, :title, :description, answers: [:id, :correct, :text])
     if all_questions.blank?
       render json: { message: "Nenhuma questão registrada!" }, status: :not_found
       return
     end
 
-    render json: { questions: all_questions.as_json(only: [:id, :title, :description]) }, status: :ok
+    render json: {
+      questions: all_questions.as_json(
+        only: [:id, :title, :description],
+        include: {
+          answers: {
+            only: [:id, :correct, :text]
+          }
+        }
+      )
+    }, status: :ok
   end
 
   def results = render json: { user_answers: @current_user.user_answers }, status: :ok
