@@ -30,6 +30,9 @@ class UserAnswer < ApplicationRecord
   before_create :set_correct
   after_save :set_offensive_streak
 
+  scope :count_user_answers, -> ( user_id ) { where( user_id: user_id)}
+  scope :count_user_correct_answers, -> { where( correct: true ) }
+
   private
 
   def set_correct

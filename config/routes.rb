@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :users do
       post '/register', action: :create
       post :login
+      get :data
     end
 
     namespace :questions do

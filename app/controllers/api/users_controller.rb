@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  skip_before_action :authorize
+  skip_before_action :authorize, except: [:data]
 
   def create
     user = User.new(user_params)
@@ -31,6 +31,18 @@ class Api::UsersController < ApplicationController
       token = JWT.encode({ id: find_user.id }, ENV['secret_jwt'], 'HS256')
       render json: {token:, email: find_user.email, name: find_user.name, current_streak: find_user.current_streak }, status: :ok
     end
+  end
+
+  def data
+    user = @current_user
+    count_user_answers = UserAnswer.count_user_answers(user.id)
+    render json: {
+      email: user.email,
+      name: user.name,
+      current_streak: user.current_streak,
+      count_user_answers: count_user_answers&.count || 0,
+      count_user_correct_answers: count_user_answers&.count_user_correct_answers&.count || 0
+    }, status: :ok
   end
 
   private
