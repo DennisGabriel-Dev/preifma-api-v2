@@ -1,13 +1,6 @@
 class Api::SimulatesController < ApplicationController
   def answer
     user_answer = current_user.user_answers.new(user_answer_params)
-    find_before_create_user_answer = UserAnswer.find_by(
-      user_id: @current_user.id,
-      question_id: user_answer_params[:question_id],
-      answer_id: user_answer_params[:answer_id]
-    )
-
-    user_answer = find_before_create_user_answer if find_before_create_user_answer.present?
 
     if user_answer.save
       correct_answer = user_answer.question.correct_answer
@@ -55,6 +48,26 @@ class Api::SimulatesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound => e
     render json: { message: "Nenhuma questão registrada com id #{params[:id]}!" }, status: :not_found
+  end
+
+  def retry_responses
+    wrong_questions = @current_user.user_answers.includes(:question)
+                        .order(id: :desc)
+                        .uniq(&:question_id)
+                        .map { _1.question unless _1.correct }
+                        .compact
+    wrong_questions = [] if wrong_questions.blank?
+
+    render json: {
+      questions: wrong_questions.as_json(
+        only: [:id, :title, :description],
+        include: {
+          answers: {
+            only: [:id, :correct, :text]
+          }
+        }
+      )
+    }, status: :ok
   end
 
   private

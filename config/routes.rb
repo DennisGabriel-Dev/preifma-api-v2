@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get :questions
       get 'questions/:id', action: :show, as: :question
       get :results
+      get :retry_responses
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
