@@ -81,10 +81,10 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: preifma_api_ruby_production
-    username: preifma_api_ruby
+    database: preifma_api
+    username: <%= ENV["PREIFMA_API_RUBY_DATABASE_USER"] %>
     password: <%= ENV["PREIFMA_API_RUBY_DATABASE_PASSWORD"] %>
-    host: <%= ENV.fetch("DB_HOST", "db") %>
+    host: localhost
     port: 5432
   cache:
     <<: *primary_production
