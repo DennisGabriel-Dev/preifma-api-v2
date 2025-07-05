@@ -1,10 +1,17 @@
-# production:
-#   periodic_cleanup:
-#     class: CleanSoftDeletedRecordsJob
-#     queue: background
-#     args: [ 1000, { batch_size: 500 } ]
-#     schedule: every hour
-#   periodic_command:
-#     command: "SoftDeletedRecord.due.delete_all"
-#     priority: 2
-#     schedule: at 5am every day
+production:
+  daily_offensive_reset:
+    class: DailyOffensiveResetJob
+    queue: default
+    schedule: at 00:00 every day
+
+development:
+  daily_offensive_reset:
+    class: DailyOffensiveResetJob
+    queue: default
+    schedule: at 00:00 every day
+
+test:
+  daily_offensive_reset:
+    class: DailyOffensiveResetJob
+    queue: default
+    schedule: at 00:00 every day
