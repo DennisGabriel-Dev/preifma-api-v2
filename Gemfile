@@ -67,4 +67,7 @@ end
 group :development do
   # https://github.com/ctran/annotate_models
   gem "annotaterb"
+
+  # view emails in development [https://github.com/ryanb/letter_opener]
+  gem "letter_opener"
 end

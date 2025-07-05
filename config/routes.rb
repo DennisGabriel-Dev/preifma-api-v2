@@ -8,6 +8,12 @@ Rails.application.routes.draw do
       get :data
     end
 
+    resources :password_resets, only: [:create, :update] do
+      member do
+        get :validate_token
+      end
+    end
+
     namespace :questions do
       post :create
     end
