@@ -29,5 +29,9 @@ module PreifmaApiRuby
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Logger personalizado para jobs
+    config.jobs_logger = ActiveSupport::Logger.new(Rails.root.join('log', 'jobs.log'))
+    config.jobs_logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
   end
 end
