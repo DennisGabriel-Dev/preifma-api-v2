@@ -28,6 +28,10 @@ class Question < ApplicationRecord
   end
 
   def image_urls
-    images.attached? ? images.map { |img| Rails.application.routes.url_helpers.rails_blob_url(img) } : []
+    return [] unless images.attached?
+
+    images.map do |img|
+      Rails.application.routes.url_helpers.rails_blob_path(img)
+    end
   end
 end
