@@ -19,7 +19,7 @@ class Api::SimulatesController < ApplicationController
   end
 
   def questions
-    q = Question.includes(:answers).ransack(params[:q])
+    q = Question.includes(:answers, images_attachments: :blob).ransack(params[:q])
     all_questions = q.result(distinct: true)
 
     if all_questions.blank?
@@ -29,11 +29,10 @@ class Api::SimulatesController < ApplicationController
 
     render json: {
       questions: all_questions.as_json(
-        only: [:id, :title, :description],
+        only: [:id, :title, :description, :year, :subject],
+        methods: [:image_urls],
         include: {
-          answers: {
-            only: [:id, :correct, :text]
-          }
+          answers: { only: [:id, :correct, :text] }
         }
       )
     }, status: :ok

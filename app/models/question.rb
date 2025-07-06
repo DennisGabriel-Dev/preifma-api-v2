@@ -26,4 +26,8 @@ class Question < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "description", "id", "id_value", "title", "updated_at", "subject", "year", "answers", "user_answers"]
   end
+
+  def image_urls
+    images.attached? ? images.map { |img| Rails.application.routes.url_helpers.rails_blob_url(img) } : []
+  end
 end

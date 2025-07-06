@@ -74,6 +74,18 @@ Rails.application.configure do
     protocol: 'https'
   }
 
+  config.action_controller.default_url_options = {
+    host: 'www.preifma.site',
+    protocol: 'https'
+  }
+
+  config.after_initialize do
+    ActiveStorage::Current.url_options = {
+      host: 'www.preifma.site',
+      protocol: 'https'
+    }
+  end
+
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
   #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
