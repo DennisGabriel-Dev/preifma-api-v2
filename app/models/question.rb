@@ -31,7 +31,16 @@ class Question < ApplicationRecord
     return [] unless images.attached?
 
     images.map do |img|
-      Rails.application.routes.url_helpers.rails_blob_path(img)
-    end
+      begin
+        Rails.application.routes.url_helpers.rails_blob_url(
+          img,
+          host: ENV['FRONTEND_URL'],
+          protocol: 'https'
+        )
+      rescue => e
+        Rails.logger.error "Erro ao gerar URL da imagem: #{e.message}"
+        nil
+      end
+    end.compact
   end
 end
