@@ -12,6 +12,10 @@ class Api::QuestionsController < ApplicationController
   private
 
   def questions_params
-    params.permit(:title, :description, :year, :subject, answers_attributes: [:text, :correct])
+    if params[:image].present? && params[:images].blank?
+      params[:images] = [params[:image]]
+    end
+
+    params.permit(:title, :description, :year, :subject, answers_attributes: [:text, :correct], images: [])
   end
 end
