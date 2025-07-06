@@ -3,9 +3,15 @@ class PasswordResetMailer < ApplicationMailer
     @user = user
     @reset_url = reset_url
 
-    mail(
+    html_content = render_to_string(
+      template: 'password_reset_mailer/reset_password_email',
+      layout: 'mailer'
+    )
+
+    SendgridService.send_email(
       to: @user.email,
-      subject: "Recuperação de Senha - Preifma"
+      subject: "Recuperação de Senha - Preifma",
+      html_content: html_content
     )
   end
 end
