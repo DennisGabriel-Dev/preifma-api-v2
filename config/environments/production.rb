@@ -61,11 +61,12 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
     port: 587,
-    domain: 'gmail.com',
     user_name: 'apikey',
     password: ENV['SENDGRID_API_KEY'],
     authentication: 'plain',
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
+    open_timeout: 15,
+    read_timeout: 15
   }
 
   config.action_mailer.default_url_options = {
