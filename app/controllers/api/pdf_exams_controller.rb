@@ -40,6 +40,6 @@ class Api::PdfExamsController < ApplicationController
   end
 
   def pdf_exam_params
-    params.require(:pdf_exam).permit(:year, :type, :title, :url_jig, :url_exam)
+    params.require(:pdf_exam).permit(:year, :type_pdf, :title, :url_jig, :url_exam)
   end
 end
