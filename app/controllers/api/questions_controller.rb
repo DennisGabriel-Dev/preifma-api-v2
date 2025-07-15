@@ -16,6 +16,6 @@ class Api::QuestionsController < ApplicationController
       params[:images] = [params[:image]]
     end
 
-    params.permit(:title, :description, :year, :subject, answers_attributes: [:text, :correct], images: [])
+    params.permit(:title, :description, :year, :subject, :type_question, answers_attributes: [:text, :correct], images: [])
   end
 end

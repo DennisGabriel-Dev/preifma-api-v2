@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_06_182142) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_15_034427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_182142) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "pdf_exams", force: :cascade do |t|
+    t.integer "year"
+    t.integer "type_pdf"
+    t.string "title"
+    t.string "url_jig"
+    t.string "url_exam"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -58,6 +68,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_06_182142) do
     t.datetime "updated_at", null: false
     t.integer "year"
     t.string "subject"
+    t.integer "type_question"
   end
 
   create_table "user_answers", force: :cascade do |t|
