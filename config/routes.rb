@@ -18,6 +18,11 @@ Rails.application.routes.draw do
 
     namespace :questions do
       post :create
+      get '/', action: :questions
+      get ':id', action: :show
+      put ':id', action: :update
+      patch ':id', action: :update
+      delete ':id', action: :destroy
     end
 
     namespace :simulates do
