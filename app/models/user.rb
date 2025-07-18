@@ -26,6 +26,8 @@ class User < ApplicationRecord
   has_many :user_answers, dependent: :destroy
   has_many :questions
 
+  enum :type_user, [ :admin, :student ]
+
   validates :password, format: {
     with: /\A(?=.*[a-z])(?=.*[A-Z]).{8,}\z/,
     message: 'deve ter pelo menos uma letra maiúscula, uma minúscula e no mínimo 8 caracteres'
