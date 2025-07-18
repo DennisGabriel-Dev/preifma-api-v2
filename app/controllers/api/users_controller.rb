@@ -54,7 +54,7 @@ class Api::UsersController < ApplicationController
       email: user.email,
       name: user.name,
       current_streak: user.current_streak,
-      type: find_user.type_user,
+      type: user.type_user,
       count_user_answers: count_user_answers&.count || 0,
       count_user_correct_answers: count_user_answers&.count_user_correct_answers&.count || 0
     }, status: :ok
