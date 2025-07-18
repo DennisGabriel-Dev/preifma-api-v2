@@ -11,26 +11,6 @@ class Api::QuestionsController < ApplicationController
     render json: { message: "Ops! Ocorreu um erro ao criar a sua questão!" }, status: :forbidden
   end
 
-  def questions
-    q = Question.includes(:answers, images_attachments: :blob).ransack(params[:q])
-    all_questions = q.result(distinct: true)
-
-    if all_questions.blank?
-      render json: { message: "Nenhuma questão registrada!" }, status: :not_found
-      return
-    end
-
-    render json: {
-      questions: all_questions.as_json(
-        only: [:id, :title, :description, :year, :subject],
-        methods: [:image_urls],
-        include: {
-          answers: { only: [:id, :correct, :text] }
-        }
-      )
-    }, status: :ok
-  end
-
   def show
     render json: {
       question: {

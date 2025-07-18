@@ -6,9 +6,17 @@ class Api::UsersController < ApplicationController
     user.password_confirmation = user.password
     if user.save
       token = JWT.encode({ id: user.id }, ENV['secret_jwt'], 'HS256')
-      render json: {token:, email: user.email, name: user.name }, status: :created
-    elsif user.errors.attribute_names.include? :email
+      render json: {
+        token:,
+        email: user.email,
+        name: user.name,
+        type: user.type_user,
+        current_streak: user.current_streak || 0
+      }, status: :created
+    elsif user.errors.attribute_names.include?(:email)
       render json: { message: "Usuário já existe!" }, status: :bad_request
+    else
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +37,13 @@ class Api::UsersController < ApplicationController
 
     if compare_password
       token = JWT.encode({ id: find_user.id }, ENV['secret_jwt'], 'HS256')
-      render json: {token:, email: find_user.email, name: find_user.name, current_streak: find_user.current_streak }, status: :ok
+      render json: {
+        token:,
+        email: find_user.email,
+        name: find_user.name,
+        current_streak: find_user.current_streak,
+        type: find_user.type_user
+      }, status: :ok
     end
   end
 
@@ -40,6 +54,7 @@ class Api::UsersController < ApplicationController
       email: user.email,
       name: user.name,
       current_streak: user.current_streak,
+      type: find_user.type_user,
       count_user_answers: count_user_answers&.count || 0,
       count_user_correct_answers: count_user_answers&.count_user_correct_answers&.count || 0
     }, status: :ok

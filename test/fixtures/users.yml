@@ -11,6 +11,7 @@
 #  password_digest        :string
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  type_user              :integer          default(1)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

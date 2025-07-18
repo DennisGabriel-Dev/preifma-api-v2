@@ -26,6 +26,11 @@ class User < ApplicationRecord
   has_many :user_answers, dependent: :destroy
   has_many :questions
 
+  validates :password, format: {
+    with: /\A(?=.*[a-z])(?=.*[A-Z]).{8,}\z/,
+    message: 'deve ter pelo menos uma letra maiúscula, uma minúscula e no mínimo 8 caracteres'
+  }, if: -> { password.present? }
+
   include OffensiveStreak
 
   def generate_reset_password_token!
