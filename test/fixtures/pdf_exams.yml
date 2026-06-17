@@ -15,14 +15,14 @@
 #
 one:
   year: 1
-  type: 
+  type_pdf: 1
   title: MyString
   url_jig: MyString
   url_exam: MyString
 
 two:
   year: 1
-  type: 
+  type_pdf: 1
   title: MyString
   url_jig: MyString
   url_exam: MyString

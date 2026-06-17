@@ -1,0 +1,40 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [ -z "${SONAR_TOKEN:-}" ]; then
+  echo "Erro: defina SONAR_TOKEN antes de rodar."
+  echo "  export SONAR_TOKEN=\"seu-token\""
+  exit 1
+fi
+
+echo "==> Subindo db e app..."
+docker compose up -d db app
+
+echo "==> Gerando cobertura (testes)..."
+docker compose exec \
+  -e COVERAGE=1 \
+  -e RAILS_ENV=test \
+  -e DATABASE_URL=postgres://postgres:postgres@db:5432/preifma_api_ruby_test \
+  app ./bin/rails db:test:prepare test
+
+if [ ! -f coverage/coverage.json ]; then
+  echo "Erro: coverage/coverage.json não foi gerado."
+  exit 1
+fi
+
+echo "==> Ajustando paths do coverage.json para o container do Sonar (/usr/src)..."
+ruby -rjson -e '
+  path = "coverage/coverage.json"
+  data = JSON.parse(File.read(path))
+  data["coverage"] = data["coverage"].transform_keys do |file|
+    file.start_with?("/") ? file : "/usr/src/#{file}"
+  end
+  File.write(path, JSON.pretty_generate(data))
+'
+
+echo "==> Enviando relatório ao Sonar..."
+docker compose --profile sonar run --rm -e SONAR_TOKEN="$SONAR_TOKEN" sonar
+
+echo "==> Concluído."

@@ -28,7 +28,18 @@ services:
       secret_jwt: ${SECRET_JWT:-dev_secret_change_me}
     ports:
       - "3000:3000"
+    volumes:
+      - ./coverage:/rails/coverage
     command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+
+  sonar:
+    image: sonarsource/sonar-scanner-cli:11
+    profiles: ["sonar"]
+    working_dir: /usr/src
+    volumes:
+      - .:/usr/src
+    environment:
+      SONAR_TOKEN: ${SONAR_TOKEN:-}
 
 volumes:
   db_data:
