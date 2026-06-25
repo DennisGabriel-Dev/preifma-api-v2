@@ -1,0 +1,14 @@
+one_wrong:
+  text: Wrong answer
+  correct: false
+  question: one
+
+one_correct:
+  text: Correct answer
+  correct: true
+  question: one
+
+two_wrong:
+  text: Wrong answer two
+  correct: false
+  question: two

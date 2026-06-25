@@ -17,7 +17,7 @@ docker compose exec \
   -e COVERAGE=1 \
   -e RAILS_ENV=test \
   -e DATABASE_URL=postgres://postgres:postgres@db:5432/preifma_api_ruby_test \
-  app ./bin/rails db:test:prepare test
+  app bash -c './bin/rails db:test:prepare && bundle exec rspec'
 
 if [ ! -f coverage/coverage.json ]; then
   echo "Erro: coverage/coverage.json não foi gerado."

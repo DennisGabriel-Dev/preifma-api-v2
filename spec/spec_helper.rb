@@ -1,5 +1,4 @@
 if ENV["COVERAGE"]
-  # Roda depois do SimpleCov gravar os relatórios (at_exit é LIFO).
   at_exit do
     coverage_dir = File.expand_path("../coverage", __dir__)
     project_root = "#{File.expand_path('..', __dir__)}/"
@@ -30,7 +29,7 @@ if ENV["COVERAGE"]
   end
 
   SimpleCov.start "rails" do
-    add_filter "/test/"
+    add_filter "/spec/"
     formatter SimpleCov::Formatter::MultiFormatter.new([
       SimpleCov::Formatter::HTMLFormatter,
       SimpleCov::Formatter::LcovFormatter,
@@ -39,18 +38,14 @@ if ENV["COVERAGE"]
   end
 end
 
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
-
-module ActiveSupport
-  class TestCase
-    # SimpleCov não funciona bem com workers paralelos sem collation
-    parallelize(workers: :number_of_processors) unless ENV["COVERAGE"]
-
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :all
-
-    # Add more helper methods to be used by all tests here...
+RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
 end
